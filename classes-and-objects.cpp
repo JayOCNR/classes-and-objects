@@ -12,17 +12,12 @@ private:
     std::string author;
     int year;
 
-public: // Constructor and Destructor and Getter
+public: // Constructor and Getter
     Book(std::string t, std::string a, int y) : title(t), author(a), year(y)
     {
         std::cout << "Resource Book added successfully!" << std::endl;
     }
-    ~Book()
-    {
-        std::cout << "Resource Book released!" << std::endl;
-        system("cls");
-        std::cout << "Exited the program." << std::endl;
-    }
+
     std::string getTitle() const { return title; }
     std::string getAuthor() const { return author; }
     int getYear() const { return year; }
@@ -45,7 +40,7 @@ public:
             title[i] = toupper(title[i]);
         }
     }
-    //Add of title, author, year
+    // Add of title, author, year
     void AddBook()
     {
         std::string title, author;
@@ -55,10 +50,13 @@ public:
         std::cin.ignore();
         std::getline(std::cin, title);
         ConvertUpper(title);
+
+        // Iterate over each Book  in the books vector.
         for (const Book &book : books)
         {
             if (book.getTitle() == title)
             {
+
                 std::cout << "Book already exists." << std::endl;
                 return;
             }
@@ -73,7 +71,7 @@ public:
         books.emplace_back(title, author, year);
         std::cout << "Book added successfully!" << std::endl;
     }
-//data of books
+    // data of books
     void BooksLibrary() const
     {
         if (books.empty())
@@ -93,12 +91,12 @@ public:
             }
         }
     }
-//searching for books
+    // searching for books
     void SearchBook() const
     {
         std::string title;
         std::cout << "Enter the title of the book to search: ";
-        std::cin.ignore(); // Clear the input buffer
+        std::cin.ignore();
         std::getline(std::cin, title);
         ConvertUpper(title);
 
@@ -122,11 +120,12 @@ public:
         }
     }
 };
-//Main Menu
+// Main Menu
 void Menu(Library &lib)
 {
     int bookchoice;
-    while (true)
+    bool condition = true;
+    while (condition)
     {
         std::cout << "\n"
                   << "Menu" << std::endl;
@@ -152,6 +151,8 @@ void Menu(Library &lib)
             break;
         case 4:
             system("cls");
+            std::cout << "Exited the progam." << std::endl;
+            condition = false;
             return;
         default:
             system("cls");
@@ -162,7 +163,8 @@ void Menu(Library &lib)
     }
 }
 
-int main() {
+int main()
+{
     Library lib;
     Menu(lib);
     return 0;
